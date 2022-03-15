@@ -1,0 +1,123 @@
+ul {
+  list-style-type: none;
+  padding-inline-start: 0%;
+}
+
+.todoList {
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 1em;
+  margin: 1em;
+  height: 30em;
+  width: 30em;
+}
+
+.todoInput {
+  width: 300px;
+  font-size: 15px;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.addTodo {
+  height: 5em;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  overflow-y: scroll;
+  height: 15em;
+  border: 2px solid black;
+  border-radius: 5%;
+
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollable::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollable {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.flex-container > ul {
+  font-size: 15px;
+  color: black;
+}
+
+.flex-container > ul li {
+  border-radius: 15px;
+  background-color: #42b983;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+.buttonOptions {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+
+.buttonOptions > button {
+  width: 10em;
+  align-content: space-around;
+  border-radius: 10px;
+  border: 1px solid black;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.done {
+  text-decoration: line-through;
+  opacity: 0.5;
+}
+
+.todo {
+  cursor: pointer;
+  padding: 1em;
+}
+
+.box {
+  cursor: move;
+  margin: 1em;
+}
+
+.disabledButton {
+  background-color: #d8d8d8;
+  cursor: not-allowed;
+}
+
+.category {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-content: center;
+  padding-top: 5px;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.formBorder {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+}
+
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 30em) {
+  .flex-container {
+    flex-direction: column;
+    justify-content: center;
+    width: 1em;
+  }
+}
