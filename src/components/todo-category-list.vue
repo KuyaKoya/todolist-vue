@@ -35,10 +35,11 @@
             You have nothing to do.
             <br />Try adding an item.
           </h4>
-          <div v-else class="flex-container scrollable" id="container">
+          <div v-else class="flex-container scrollable">
             <ul v-if="category.todos.length > 0">
               <draggable>
-                <li class="box" v-for="(todo, todoIndex) in category.todos" :key="todoIndex">
+                <li class="box"
+                v-for="(todo, todoIndex) in category.todos" :key="todoIndex">
                   <span
                     class="todo"
                     :class="{ done: todo.done }"
@@ -84,8 +85,12 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent, PropType } from 'vue';
-import TodoComponent from '@/components/todo-item-list.vue';
+import {
+  ref,
+  defineComponent,
+  PropType,
+  onUpdated,
+} from 'vue';
 import { VueDraggableNext } from 'vue-draggable-next';
 import { Category } from '@/interfaces/ICategory';
 import { Todo } from '@/interfaces/ITodo';
@@ -106,9 +111,9 @@ export default defineComponent({
     const parseCategory = categoryData !== null ? JSON.parse(categoryData) : [];
     const categories = ref(parseCategory);
 
-    function updateCategory() {
+    onUpdated(() => {
       categories.value = props.propCat;
-    }
+    });
 
     function saveData() {
       const storageData = JSON.stringify(categories.value);
@@ -123,26 +128,23 @@ export default defineComponent({
     }
 
     function markAll(index: number) {
-      updateCategory();
       categories.value[index].todos.forEach((todo: Todo) => {
         todo.done = true;
       });
     }
 
     function removeTodo(catIndex: number, todoIndex: number) {
-      updateCategory();
+      console.log(categories.value);
       categories.value[catIndex].todos.splice(todoIndex, 1);
       saveData();
     }
 
     function removeAllTodo(index: number) {
-      updateCategory();
       categories.value[index].todos = [];
       saveData();
     }
 
     function addTodo(index: number) {
-      updateCategory();
       if (newTodo.value) {
         console.log('inside', categories);
         categories.value[index].todos.push({
@@ -157,7 +159,6 @@ export default defineComponent({
     }
 
     function editPressed(catIndex: number, todoIndex: number) {
-      updateCategory();
       console.log(catIndex, '', todoIndex);
       const todo = categories.value[catIndex].todos;
       console.log(categories.value[catIndex].todos[todoIndex].content);
@@ -167,7 +168,6 @@ export default defineComponent({
     }
 
     function saveTodo(catIndex: number, todoIndex: number) {
-      updateCategory();
       console.log('pressed');
       console.log(editTodo.value);
       if (editTodo.value) {
@@ -178,7 +178,6 @@ export default defineComponent({
     }
 
     function addCancelButton(index: number) {
-      updateCategory();
       for (let i = 0; i < categories.value.length;) {
         if (i === index) {
           categories.value[index].willAddTodo = !categories.value[index].willAddTodo;
@@ -192,13 +191,11 @@ export default defineComponent({
     }
 
     function removeCategory(index: number) {
-      updateCategory();
       categories.value.splice(index, 1);
       saveData();
     }
 
     function removeAllCategories() {
-      updateCategory();
       categories.value = [];
       saveData();
     }

@@ -22,15 +22,28 @@
 </template>
 
 <script lang="ts">
-import { ref, defineComponent } from 'vue';
+import { Category } from '@/interfaces/ICategory';
+import {
+  ref,
+  defineComponent,
+  onUpdated,
+  PropType,
+} from 'vue';
 
 export default defineComponent({
   name: 'AddTodoCategory',
-  setup(_, { emit }) {
+  props: {
+    propCat: { type: Array as PropType<Array<Category>>, required: true },
+  },
+  setup(props, { emit }) {
     const todoCategory = ref('');
     const categoryData = localStorage.getItem('categories');
     const parseCategory = categoryData !== null ? JSON.parse(categoryData) : [];
     const categories = ref(parseCategory);
+
+    onUpdated(() => {
+      categories.value = props.propCat;
+    });
 
     function saveData() {
       const storageData = JSON.stringify(categories.value);
