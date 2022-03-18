@@ -1,24 +1,20 @@
 <template>
-  <div class="formBorder">
-    <form @submit.prevent="addTodoCategory()">
-        <input
-          class="todoInput"
-          v-model="todoCategory"
-          name="todoCategory"
-          autocomplete="off"
-          placeholder="Add a todo category"
-        />
-        <div class="buttonOptions">
-          <button
-            :class="{ disabledButton: todoCategory.length <= 0 }"
-            :disabled="todoCategory.length <= 0"
-          >Add Category</button>
-          <button
-            v-if="categories.length !== 0"
-            @click="removeAllCategories()">Delete All</button>
-        </div>
-    </form>
-  </div>
+  <form @submit.prevent="addTodoCategory()" class="createGrid">
+      <input
+        class="todoInput"
+        v-model="todoCategory"
+        name="todoCategory"
+        autocomplete="off"
+        placeholder="Add a todo category"
+      />
+      <div class="add">
+        <button
+          title="Add todo category"
+          class="fa-solid fa-plus"
+          :class="{ disabledButton: todoCategory.length <= 0 }"
+          :disabled="todoCategory.length <= 0"/>
+      </div>
+  </form>
 </template>
 
 <script lang="ts">

@@ -4,7 +4,7 @@
 <!-- end of create todo category -->
 
 <!-- category list -->
-<CategoryList @category="updateCategory" :propCat="categories"/>
+  <CategoryList @category="updateCategory" :propCat="categories"/>
 <!-- end of category list -->
 </template>
 
@@ -29,7 +29,6 @@ export default defineComponent({
 
     function updateCategory(catValue: any) {
       categories.value = catValue;
-      console.log('main', categories.value);
     }
 
     return {

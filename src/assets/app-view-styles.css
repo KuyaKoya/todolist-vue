@@ -3,12 +3,104 @@ ul {
   padding-inline-start: 0%;
 }
 
+.container {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
+}
+
+.createGrid {
+  display: grid;
+  grid-template-columns: 90% 10%;
+  justify-content: center;
+  align-items: center;
+  align-content: space-between;
+  justify-items: center;
+  margin-left: 40%;
+  margin-right: 40%;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 90% 10%;
+}
+
+.content {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: stretch;
+  align-self: center;
+}
+
+.contentInput {
+  font-size: 15px;
+  border-radius: 10px;
+  padding: 1em;
+  margin-right: 1em;
+}
+
+.options {
+  display: grid;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.options > button {
+  align-items: center;
+  width: fit-content;
+  border-radius: 60%;
+  border: 1px solid transparent;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  padding: 0.5em;
+  background-color: palegreen;
+}
+
+.categoryButtons {
+  display: flex;
+  justify-content: flex-end;
+  align-content: space-between;
+}
+
+.categoryButtons > button {
+  border: transparent;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1em;
+}
+
+.addInput {
+  margin-left: 5%;
+  font-size: 15px;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.add {
+  display: grid;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.add > button{
+  align-items: center;
+  width: fit-content;
+  border-radius: 60%;
+  border: 1px solid transparent;
+  font-size: 15px;
+  cursor: pointer;
+  margin-top: 0.1em;
+  margin-bottom: 0.1em;
+  padding: 0.5em;
+}
+
 .todoList {
-  border: 2px solid black;
+  box-shadow: 20px 20px 20px gray;
   border-radius: 10px;
   padding: 1em;
   margin: 1em;
-  height: 30em;
+  height: 80%;
   width: 30em;
 }
 
@@ -19,20 +111,15 @@ ul {
   padding: 1em;
 }
 
-.addTodo {
-  height: 5em;
-}
-
 .flex-container {
   display: flex;
   flex-direction: column;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
+  margin-top: 1%;
   margin-bottom: 5%;
   overflow-y: scroll;
-  height: 15em;
-  border: 2px solid black;
+  height: 65%;
   border-radius: 5%;
 
 }
@@ -84,12 +171,12 @@ ul {
 
 .todo {
   cursor: pointer;
+  font-size: 20px;
   padding: 1em;
 }
 
 .box {
   cursor: move;
-  margin: 1em;
 }
 
 .disabledButton {
