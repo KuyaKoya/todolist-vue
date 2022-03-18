@@ -1,10 +1,25 @@
 <template>
+  <Toast/>
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/todo">Go to app</router-link>
   </nav>
   <router-view/>
 </template>
+
+<script lang="ts">
+import Toast from 'primevue/toast';
+import {
+  ref,
+  defineComponent,
+} from 'vue';
+
+export default defineComponent({
+  components: {
+    Toast,
+  },
+});
+</script>
 
 <style>
 #app {

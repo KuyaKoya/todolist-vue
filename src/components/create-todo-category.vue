@@ -19,6 +19,7 @@
 
 <script lang="ts">
 import { Category } from '@/interfaces/ICategory';
+import { useToast } from 'primevue/usetoast';
 import {
   ref,
   defineComponent,
@@ -36,6 +37,7 @@ export default defineComponent({
     const categoryData = localStorage.getItem('categories');
     const parseCategory = categoryData !== null ? JSON.parse(categoryData) : [];
     const categories = ref(parseCategory);
+    const toast = useToast();
 
     onUpdated(() => {
       categories.value = props.propCat;
@@ -57,18 +59,15 @@ export default defineComponent({
         todoCategory.value = '';
       }
       saveData();
-    }
-
-    function removeAllCategories() {
-      categories.value = [];
-      saveData();
+      toast.add({
+        severity: 'success', summary: `Successfully added ${todoCategory.value}`, detail: 'Created Category', life: 3000,
+      });
     }
 
     return {
       todoCategory,
       categories,
       addTodoCategory,
-      removeAllCategories,
     };
   },
 });
