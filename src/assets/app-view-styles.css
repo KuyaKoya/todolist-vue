@@ -1,3 +1,10 @@
+@import url("./animations.css");
+
+.animTodoAdded {
+  animation: todoAdded;
+  animation-duration: 3s;
+}
+
 ul {
   list-style-type: none;
   padding-inline-start: 0%;
@@ -29,6 +36,8 @@ ul {
   flex-flow: column wrap;
   align-items: stretch;
   align-self: center;
+  word-wrap: break-word;
+  flex-wrap: nowrap;
 }
 
 .contentInput {
@@ -42,6 +51,7 @@ ul {
   display: grid;
   justify-content: space-around;
   align-items: center;
+  align-content: center;
 }
 
 .options > button {
@@ -101,6 +111,7 @@ ul {
   padding: 1em;
   margin: 1em;
   height: 80%;
+  max-height: 50em;
   width: 30em;
 }
 
@@ -172,7 +183,7 @@ ul {
 
 .todo {
   cursor: pointer;
-  font-size: 20px;
+  font-size: 16px;
   padding: 1em;
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="category">
-    <TodoList @category="updateCategory" :propCat="propCat"/>
+    <TodoList @category="updateCategory" :propCategory="propCategory"/>
   </div>
 </template>
 
@@ -18,7 +18,7 @@ import TodoList from '@/components/todo-list.vue';
 export default defineComponent({
   name: 'CategoryList',
   props: {
-    propCat: { type: Array as PropType<Array<Category>>, required: true },
+    propCategory: { type: Array as PropType<Array<Category>>, required: true },
   },
   components: {
     TodoList,
@@ -29,7 +29,7 @@ export default defineComponent({
     const categories = ref(parseCategory);
 
     onUpdated(() => {
-      categories.value = props.propCat;
+      categories.value = props.propCategory;
       emit('category', categories.value);
     });
 

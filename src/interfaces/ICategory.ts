@@ -4,4 +4,5 @@ export interface Category {
     name: string;
     todos: Todo[];
     willAddTodo: boolean;
+    willAnimate: boolean;
 }
