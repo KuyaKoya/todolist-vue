@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent } from 'vue';
 import CategoryList from '@/components/todo-category-list.vue';
 import useCategory from '@/composables/use-todos';
 
