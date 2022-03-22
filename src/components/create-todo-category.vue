@@ -1,4 +1,6 @@
-<template>
+onMounted,
+  onUpdated, import { Category } from '@/interfaces/ICategory';
+, PropType<template>
   <form @submit.prevent="addTodoCategory()" class="createGrid">
       <input
         class="todoInput"
@@ -18,11 +20,11 @@
 </template>
 
 <script lang="ts">
+import useCategory from '@/composables/use-todos';
 import { Category } from '@/interfaces/ICategory';
-import { useToast } from 'primevue/usetoast';
 import {
-  ref,
   defineComponent,
+  onMounted,
   onUpdated,
   PropType,
 } from 'vue';
@@ -30,44 +32,29 @@ import {
 export default defineComponent({
   name: 'AddTodoCategory',
   props: {
-    propCategory: { type: Array as PropType<Array<Category>>, required: true },
+    categoryData: { type: Array as PropType<Array<Category>>, required: true },
   },
+  emits: ['category'],
   setup(props, { emit }) {
-    const todoCategory = ref('');
-    const categoryData = localStorage.getItem('categories');
-    const parseCategory = categoryData !== null ? JSON.parse(categoryData) : [];
-    const categories = ref(parseCategory);
-    const toast = useToast();
+    const {
+      categories,
+      todoCategory,
+      addTodoCategory,
+    } = useCategory();
 
-    onUpdated(() => {
-      categories.value = props.propCategory;
+    onMounted(() => {
+      categories.value = props.categoryData;
+      emit('category', categories.value);
     });
 
-    function saveData() {
-      const storageData = JSON.stringify(categories.value);
-      localStorage.setItem('categories', storageData);
+    onUpdated(() => {
+      categories.value = props.categoryData;
       emit('category', categories.value);
-    }
-
-    function addTodoCategory() {
-      if (todoCategory.value) {
-        categories.value.push({
-          name: todoCategory.value,
-          willAddTodo: false,
-          willAnimate: false,
-          todos: [],
-        });
-      }
-      toast.add({
-        severity: 'success', summary: `Successfully added ${todoCategory.value}`, detail: `You can now add todo items in "${todoCategory.value}"`, life: 3000,
-      });
-      todoCategory.value = '';
-      saveData();
-    }
+    });
 
     return {
-      todoCategory,
       categories,
+      todoCategory,
       addTodoCategory,
     };
   },

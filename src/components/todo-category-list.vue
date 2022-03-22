@@ -1,44 +1,43 @@
+, PropTypeimport { Category } from '@/interfaces/ICategory';
 <template>
+  <AddTodoCategory @category="updateCategory" :categoryData="categories"/>
   <div class="category">
-    <TodoList @category="updateCategory" :propCategory="propCategory"/>
+    <TodoList @category="updateCategory" :categoryData="categories"/>
   </div>
 </template>
 
 <script lang="ts">
 import {
-  ref,
-  defineComponent,
-  PropType,
-  onUpdated,
+  defineComponent, onUpdated,
 } from 'vue';
-import { Category } from '@/interfaces/ICategory';
-import { Todo } from '@/interfaces/ITodo';
 import TodoList from '@/components/todo-list.vue';
+import AddTodoCategory from '@/components/create-todo-category.vue';
+import useCategory from '@/composables/use-todos';
+import { Category } from '@/interfaces/ICategory';
 
 export default defineComponent({
   name: 'CategoryList',
-  props: {
-    propCategory: { type: Array as PropType<Array<Category>>, required: true },
-  },
+  emits: ['category'],
   components: {
     TodoList,
+    AddTodoCategory,
   },
   setup(props, { emit }) {
-    const categoryData = localStorage.getItem('categories');
-    const parseCategory = categoryData !== null ? JSON.parse(categoryData) : [];
-    const categories = ref(parseCategory);
+    const {
+      categories,
+    } = useCategory();
 
     onUpdated(() => {
-      categories.value = props.propCategory;
       emit('category', categories.value);
     });
 
-    function updateCategory(catValue: any) {
-      categories.value = catValue;
+    function updateCategory(categoryValue: Category) {
+      categories.value = categoryValue;
       emit('category', categories.value);
     }
 
     return {
+      categories,
       updateCategory,
     };
   },
