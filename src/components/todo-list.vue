@@ -1,9 +1,6 @@
 <template>
-  <div v-for="(category, catIndex) in propCategory" :key="catIndex">
-    <div
-    class="todoList"
-    :class="{ animTodoAdded: category.willAnimate }"
-    >
+  <div v-for="(category, catIndex) in propCat" :key="catIndex">
+    <div class="todoList">
       <div class="categoryButtons">
         <button
         title="Mark all Todos Done"
@@ -18,7 +15,7 @@
         <button
         title="Delete Todo Category"
         class="fa-solid fa-xmark"
-        v-if="propCategory.length !== 0"
+        v-if="propCat.length !== 0"
         @click="removeCategory(catIndex)"/>
       </div>
       <!-- todo add -->
@@ -57,7 +54,7 @@
                   :class="{ done: todo.done }"
                   @keydown="doneTodo(todo)"
                   @click="doneTodo(todo)"
-                  v-if="!todo.willEdit"
+                  v-if="!todo.willEditTodo"
                   >{{ todo.content }}</span
                 >
                 <input
@@ -73,13 +70,13 @@
                   <button
                   title="Edit Todo"
                   class="fa-solid fa-pencil"
-                  v-if="!todo.willEdit"
+                  v-if="!todo.willEditTodo"
                   @click="editPressed(catIndex, todoIndex)">
                   </button>
                   <button
                   title="Delete Todo"
                   class="fa-solid fa-trash"
-                  v-if="!todo.willEdit"
+                  v-if="!todo.willEditTodo"
                   @click="removeTodo(catIndex, todoIndex)"/>
                   <button
                   title="Save Todo"
@@ -103,12 +100,11 @@ import {
 import { VueDraggableNext } from 'vue-draggable-next';
 import { Category } from '@/interfaces/ICategory';
 import { Todo } from '@/interfaces/ITodo';
-import { useToast } from 'primevue/usetoast';
 
 export default defineComponent({
   name: 'TodoList',
   props: {
-    propCategory: { type: Array as PropType<Array<Category>>, required: true },
+    propCat: { type: Array as PropType<Array<Category>>, required: true },
   },
   components: {
     draggable: VueDraggableNext,
@@ -120,10 +116,10 @@ export default defineComponent({
     const categories = ref(parseCategory);
     const newTodoList:Ref<string[]> = ref([]);
     const editTodoList:Ref<string[]> = ref([]);
-    const toast = useToast();
+    const isDrag = ref(VueDraggableNext.activated);
 
     onUpdated(() => {
-      categories.value = props.propCategory;
+      categories.value = props.propCat;
       emit('category', categories.value);
     });
 
@@ -146,29 +142,19 @@ export default defineComponent({
     }
 
     function removeTodo(catIndex: number, todoIndex: number) {
+      console.log(categories.value);
       categories.value[catIndex].todos.splice(todoIndex, 1);
-      categories.value[catIndex].willAnimate = true;
       saveData();
-
-      setTimeout(() => {
-        categories.value[catIndex].willAnimate = false;
-        saveData();
-      }, 500);
     }
 
     function removeAllTodo(index: number) {
       categories.value[index].todos = [];
-      categories.value[index].willAnimate = true;
       saveData();
-
-      setTimeout(() => {
-        categories.value[index].willAnimate = false;
-        saveData();
-      }, 500);
     }
 
     function addTodo(index: number) {
       if (newTodoList.value[index]) {
+        console.log('inside', categories);
         categories.value[index].todos.push({
           done: false,
           content: newTodoList.value[index],
@@ -177,17 +163,12 @@ export default defineComponent({
         newTodoList.value[index] = '';
       }
       categories.value[index].willAddTodo = false;
-      categories.value[index].willAnimate = true;
       saveData();
-
-      setTimeout(() => {
-        categories.value[index].willAnimate = false;
-        saveData();
-      }, 500);
     }
 
     function editPressed(catIndex: number, todoIndex: number) {
       console.log(catIndex, '', todoIndex);
+      const todo = categories.value[catIndex].todos;
       console.log(categories.value[catIndex].todos[todoIndex].content);
       categories.value[catIndex].todos[todoIndex].willEditTodo = true;
       editTodoList.value[todoIndex] = categories.value[catIndex].todos[todoIndex].content;
@@ -199,13 +180,7 @@ export default defineComponent({
         categories.value[catIndex].todos[todoIndex].content = editTodoList.value[todoIndex];
       }
       categories.value[catIndex].todos[todoIndex].willEditTodo = false;
-      categories.value[catIndex].willAnimate = true;
       saveData();
-
-      setTimeout(() => {
-        categories.value[catIndex].willAnimate = false;
-        saveData();
-      }, 500);
     }
 
     function cancelButton(index: number) {
@@ -214,19 +189,17 @@ export default defineComponent({
     }
 
     function removeCategory(index: number) {
-      const categoryName = categories.value[index].name;
-      console.log(categoryName);
       categories.value.splice(index, 1);
       saveData();
-
-      toast.add({
-        severity: 'success', summary: `Successfully deleted ${categoryName}`, detail: `"${categoryName}" has been removed from the list`, life: 3000,
-      });
     }
 
     function removeAllCategories() {
       categories.value = [];
       saveData();
+    }
+
+    function handleMove(event:any) {
+      console.log('moving', event);
     }
 
     return {
@@ -244,6 +217,7 @@ export default defineComponent({
       cancelButton,
       removeCategory,
       removeAllCategories,
+      handleMove,
     };
   },
 });

@@ -30,7 +30,7 @@ import {
 export default defineComponent({
   name: 'AddTodoCategory',
   props: {
-    propCategory: { type: Array as PropType<Array<Category>>, required: true },
+    propCat: { type: Array as PropType<Array<Category>>, required: true },
   },
   setup(props, { emit }) {
     const todoCategory = ref('');
@@ -40,7 +40,7 @@ export default defineComponent({
     const toast = useToast();
 
     onUpdated(() => {
-      categories.value = props.propCategory;
+      categories.value = props.propCat;
     });
 
     function saveData() {
@@ -54,15 +54,14 @@ export default defineComponent({
         categories.value.push({
           name: todoCategory.value,
           willAddTodo: false,
-          willAnimate: false,
           todos: [],
         });
+        todoCategory.value = '';
       }
-      toast.add({
-        severity: 'success', summary: `Successfully added ${todoCategory.value}`, detail: `You can now add todo items in "${todoCategory.value}"`, life: 3000,
-      });
-      todoCategory.value = '';
       saveData();
+      toast.add({
+        severity: 'success', summary: `Successfully added ${todoCategory.value}`, detail: 'Created Category', life: 3000,
+      });
     }
 
     return {
