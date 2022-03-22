@@ -1,17 +1,22 @@
 <template>
+<!-- create todo category -->
+  <AddTodoCategory @category="updateCategory" :propCategory="categories"/>
+<!-- end of create todo category -->
+
 <!-- category list -->
-  <CategoryList/>
+  <CategoryList @category="updateCategory" :propCategory="categories"/>
 <!-- end of category list -->
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { ref, defineComponent } from 'vue';
+import AddTodoCategory from '@/components/create-todo-category.vue';
 import CategoryList from '@/components/todo-category-list.vue';
-import useCategory from '@/composables/use-todos';
 
 export default defineComponent({
   name: 'TodoComponent',
   components: {
+    AddTodoCategory,
     CategoryList,
   },
   setup() {
@@ -47,10 +52,17 @@ export default defineComponent({
     //   willAddTodo: false,
     //   willAnimate: false,
     // }];
+    const categoryData = localStorage.getItem('categories');
+    const parseCategory = categoryData !== null ? JSON.parse(categoryData) : [];
+    const categories = ref(parseCategory);
 
-    const { categories } = useCategory();
+    function updateCategory(catValue: any) {
+      categories.value = catValue;
+    }
+
     return {
       categories,
+      updateCategory,
     };
   },
 });
