@@ -19,46 +19,6 @@ export default function useCategory() {
     localStorage.setItem('categories', storageData);
   }
 
-  function addDummyData() {
-    if (!categories.value.length) {
-      // sample data
-      categories.value.push({
-        id: categories.value.length,
-        name: 'test data',
-        willAddTodo: false,
-        willAnimate: false,
-        todos: [
-          {
-            content: 'transfer logic to composables',
-            done: true,
-            willEdit: false,
-          },
-          {
-            content: 'finish flicker',
-            done: true,
-            willEdit: false,
-          },
-          {
-            content: 'make local storage stacic object',
-            done: true,
-            willEdit: false,
-          },
-          {
-            content: 'rename willAddTodo in Todo',
-            done: true,
-            willEdit: false,
-          },
-          {
-            content: 'create enums for routes',
-            done: true,
-            willEdit: false,
-          },
-        ],
-      });
-      saveData();
-    }
-  }
-
   function addTodoCategory() {
     if (todoCategory.value) {
       categories.value.push({
@@ -114,7 +74,7 @@ export default function useCategory() {
       categories.value[index].todos.push({
         done: false,
         content: newTodoList.value[index],
-        willEdit: false,
+        willEditTodo: false,
       });
       newTodoList.value[index] = '';
     }
@@ -129,7 +89,7 @@ export default function useCategory() {
   }
 
   function editPressed(catIndex: number, todoIndex: number) {
-    categories.value[catIndex].todos[todoIndex].willEdit = true;
+    categories.value[catIndex].todos[todoIndex].willEditTodo = true;
     editTodoList.value[todoIndex] = categories.value[catIndex].todos[todoIndex].content;
     saveData();
   }
@@ -138,7 +98,7 @@ export default function useCategory() {
     if (editTodoList.value[todoIndex]) {
       categories.value[catIndex].todos[todoIndex].content = editTodoList.value[todoIndex];
     }
-    categories.value[catIndex].todos[todoIndex].willEdit = false;
+    categories.value[catIndex].todos[todoIndex].willEditTodo = false;
     categories.value[catIndex].willAnimate = true;
     saveData();
 
@@ -163,7 +123,6 @@ export default function useCategory() {
     categories,
     newTodoList,
     editTodoList,
-    addDummyData,
     addTodoCategory,
     addTodo,
     doneTodo,

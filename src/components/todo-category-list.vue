@@ -1,4 +1,4 @@
-onMounted, , PropTypeimport { Category } from '@/interfaces/ICategory';
+, PropTypeimport { Category } from '@/interfaces/ICategory';
 <template>
   <AddTodoCategory @category="updateCategory" :categoryData="categories"/>
   <div class="category">
@@ -8,7 +8,7 @@ onMounted, , PropTypeimport { Category } from '@/interfaces/ICategory';
 
 <script lang="ts">
 import {
-  defineComponent, onMounted, onUpdated,
+  defineComponent, onUpdated,
 } from 'vue';
 import TodoList from '@/components/todo-list.vue';
 import AddTodoCategory from '@/components/create-todo-category.vue';
@@ -25,13 +25,7 @@ export default defineComponent({
   setup(props, { emit }) {
     const {
       categories,
-      addDummyData,
     } = useCategory();
-
-    onMounted(() => {
-      addDummyData();
-      emit('category', categories.value);
-    });
 
     onUpdated(() => {
       emit('category', categories.value);
