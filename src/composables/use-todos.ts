@@ -19,44 +19,9 @@ export default function useCategory() {
     localStorage.setItem('categories', storageData);
   }
 
-  function addDummyData() {
-    if (!categories.value.length) {
-      // sample data
-      categories.value.push({
-        id: categories.value.length,
-        name: 'test data',
-        willAddTodo: false,
-        willAnimate: false,
-        todos: [
-          {
-            content: 'transfer logic to composables',
-            done: true,
-            willEdit: false,
-          },
-          {
-            content: 'finish flicker',
-            done: true,
-            willEdit: false,
-          },
-          {
-            content: 'make local storage stacic object',
-            done: true,
-            willEdit: false,
-          },
-          {
-            content: 'rename willAddTodo in Todo',
-            done: true,
-            willEdit: false,
-          },
-          {
-            content: 'create enums for routes',
-            done: true,
-            willEdit: false,
-          },
-        ],
-      });
-      saveData();
-    }
+  function addAPIValue(jsonData: any) {
+    categories.value = jsonData;
+    saveData();
   }
 
   function addTodoCategory() {
@@ -163,7 +128,7 @@ export default function useCategory() {
     categories,
     newTodoList,
     editTodoList,
-    addDummyData,
+    addAPIValue,
     addTodoCategory,
     addTodo,
     doneTodo,

@@ -5,9 +5,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 import CategoryList from '@/components/todo-category-list.vue';
 import useCategory from '@/composables/use-todos';
+import useAPI from '@/composables/use-api';
 
 export default defineComponent({
   name: 'TodoComponent',
@@ -15,7 +16,12 @@ export default defineComponent({
     CategoryList,
   },
   setup() {
-    const { categories } = useCategory();
+    const { categories, addAPIValue } = useCategory();
+    const { fetchJSON } = useAPI();
+
+    onMounted(() => {
+      fetchJSON();
+    });
 
     return {
       categories,

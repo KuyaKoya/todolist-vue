@@ -1,0 +1,37 @@
+{
+    "categories": [
+        {
+            "id": 10000,
+            "name": "test",
+            "willAddTodo": false,
+            "willAnimate": false,
+            "todos": [
+                {
+                "content": "transfer logic to composables",
+                "done": true,
+                "willEdit": false
+                },
+                {
+                "content": "finish flicker",
+                "done": true,
+                "willEdit": false
+                },
+                {
+                "content": "make local storage stacic object",
+                "done": true,
+                "willEdit": false
+                },
+                {
+                "content": "rename willAddTodo in Todo",
+                "done": true,
+                "willEdit": false
+                },
+                {
+                "content": "create enums for routes",
+                "done": true,
+                "willEdit": false
+                }
+            ]
+        }
+    ]
+}

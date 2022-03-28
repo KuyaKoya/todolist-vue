@@ -1,7 +1,4 @@
-,
-PropTypeimport { Category } from '@/interfaces/ICategory';
-,
-onUpdated<template>
+<template>
   <div v-for="(category, catIndex) in categoryData" :key="catIndex">
     <div
     class="todoList"

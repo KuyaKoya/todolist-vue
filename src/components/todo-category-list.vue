@@ -25,11 +25,11 @@ export default defineComponent({
   setup(props, { emit }) {
     const {
       categories,
-      addDummyData,
+      // addDummyData,
     } = useCategory();
 
     onMounted(() => {
-      addDummyData();
+      // addDummyData();
       emit('category', categories.value);
     });
 
