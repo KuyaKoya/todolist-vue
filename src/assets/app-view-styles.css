@@ -9,8 +9,8 @@ ul {
 }
 
 .createGrid {
-  display: grid;
-  grid-template-columns: 90% 10%;
+  display: flex;
+  gap: 1em;
   justify-content: center;
   align-items: center;
   align-content: space-between;
@@ -83,7 +83,7 @@ ul {
   align-items: center;
 }
 
-.add > button{
+.add > button {
   align-items: center;
   width: fit-content;
   border-radius: 60%;
@@ -96,7 +96,7 @@ ul {
 }
 
 .todoList {
-  box-shadow: 20px 20px 20px gray;
+  box-shadow: 10px 10px 10px gray;
   border-radius: 10px;
   padding: 1em;
   margin: 1em;
@@ -121,7 +121,6 @@ ul {
   overflow-y: scroll;
   height: 65%;
   border-radius: 5%;
-
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -131,8 +130,8 @@ ul {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .scrollable {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .flex-container > ul {
