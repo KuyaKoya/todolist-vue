@@ -3,6 +3,8 @@
     <p>
       Seth Cornelio <br>
       date started: 03/08/2022
+
+      Added PWA support: 10/08/2022 <br>
     </p>
   </div>
 </template>
